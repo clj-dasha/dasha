@@ -10,6 +10,8 @@
                  [org.clojure/clojurescript "0.0-2322"]
                  [compojure "1.1.9"]
                  [ring/ring "1.3.1"]
+                 [reagent "0.4.2"]
+                 [reagent-forms "0.1.7"]
                  ]
   :plugins [[lein-cljsbuild "1.0.4-SNAPSHOT"]]
 

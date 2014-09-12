@@ -3,7 +3,7 @@
    [cljs.core.async.macros :as asyncm :refer (go go-loop)])
   (:require [cljs.core.async :as async :refer (<! >! put! chan)]
             [taoensso.sente  :as sente :refer (cb-success?)]
-            [dasha.widgets :as widgets]))
+            [dasha.routing :as r]))
 
 (defn log
   [data]
@@ -12,7 +12,7 @@
 (defn route-receive
   [[event {:keys [widget data] :as all}]]
   (log (str "received " event " with data: " all))
-  (if-let [w (widget widgets/all)]
+  (if-let [w (widget r/all)]
     (go
       (>! (:channel w) data))))
 
