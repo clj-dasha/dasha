@@ -1,19 +1,20 @@
 (ns dasha.core
   (:require-macros
    [cljs.core.async.macros :as asyncm :refer (go go-loop)])
-  (:require
-   ;; <other stuff>
-   [cljs.core.async :as async :refer (<! >! put! chan)]
-   [taoensso.sente  :as sente :refer (cb-success?)]))
+  (:require [cljs.core.async :as async :refer (<! >! put! chan)]
+            [taoensso.sente  :as sente :refer (cb-success?)]
+            [dasha.widgets :as widgets]))
 
 (defn log
   [data]
   (.log js/console (str data)))
 
 (defn route-receive
-  [[event data]]
-  (log (str "received " event " with data: " data))
-    )
+  [[event {:keys [widget data] :as all}]]
+  (log (str "received " event " with data: " all))
+  (let [c (-> widgets/all widget :channel)]
+    (go
+     (>! c data))))
 
 (defn route-event
   [[event-id data :as all]]
@@ -32,8 +33,8 @@
   (def chsk-state state)   ; Watchable, read-only atom
 
   (go
-     (while true
-       (route-event (:event (<! ch-recv)))))
+    (while true
+      (route-event (:event (<! ch-recv)))))
 
   )
 
