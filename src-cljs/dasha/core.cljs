@@ -11,7 +11,7 @@
 
 (defn route-receive
   [[event {:keys [widget data] :as all}]]
-  (log (str "received " event " with data: " all))
+  ;;(log (str "received " event " with data: " all))
   (let [c (-> widgets/all widget :channel)]
     (go
      (>! c data))))
@@ -32,9 +32,9 @@
   (def chsk-send! send-fn) ; ChannelSocket's send API fn
   (def chsk-state state)   ; Watchable, read-only atom
 
-  (go
-    (while true
-      (route-event (:event (<! ch-recv)))))
+  (go-loop []
+    (route-event (:event (<! ch-recv)))
+    (recur))
 
   )
 

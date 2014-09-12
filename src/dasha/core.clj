@@ -34,6 +34,6 @@
 (defn -main [& args] ;; entry point, lein run will pick up and start from here
   (run-server handler {:port 8080}))
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget1 :data {:new-value 12}}])
-;;(chsk-send! nil [:dasha.core/test {:widget :widget2 :data {:new-value "asd"}}])
+;;(chsk-send! nil [:dasha.core/test {:widget :widget2 :data {:new-value "test"}}])
 ;;(def s (-main))
 

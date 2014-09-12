@@ -7,15 +7,19 @@
   [data]
   (.log js/console (str data)))
 
-(def widget-keys [:widget1 :widget2])
+(def widgets {:widget1 #(log (str "Widget #1 received " % ))
+              :widget2 #(log (str "Widget #2 received " % ))})
+
+(def widget-keys (keys widgets))
+
 
 (def all (into {} (map (fn [k] [k {:channel (chan)}]) widget-keys)))
 
 (defn bind-widget
   [widget-key]
-  (go
-   (while true
-     (let [data (<! (-> all widget-key :channel))]
-       (log (str "widget " widget-key " received " data))))))
+  (go-loop []
+   (let [data (<! (-> all widget-key :channel))]
+     ((widget-key widgets) data))
+   (recur)))
 
 (doseq [w widget-keys] (bind-widget w))
