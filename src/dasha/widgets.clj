@@ -1,16 +1,26 @@
 (ns dasha.widgets
-  (:require [clojure.core.async :as async :refer [<! chan mix admix go-loop]]
+  (:require [clojure.core.async :as async :refer [<! >!! chan go-loop]]
             [dasha.widgets.random :as random]))
 
+(def management-channel (atom nil))
+
 (defn start []
-  (let [out (chan)
-        mixer (mix out)]
-    (admix mixer (random/widget))
+  (let [in (chan)
+        out (chan)
+        multiplier (async/mult in)
+        mixer (async/mix out)]
+    (async/admix mixer (random/widget multiplier))
+    (reset! management-channel in)
     out))
 
+(defn stop []
+  (>!! @management-channel :stop))
+
+;; (dasha.widgets/stop)
+
 (defn test []
-  (let [ch (start)]
+  (let [c (start)]
     (go-loop []
-      (println (<! ch))
+      (println (<! c))
       (recur))))
 
