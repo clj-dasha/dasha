@@ -1,6 +1,6 @@
 {"version":3,
  "file":"/home/sherpc/projects/clojure/dasha/resources/public/js/.js",
- "sources":["value.cljs"],
+ "sources":["chart.cljs"],
  "lineCount":3,
  "mappings":"",
  "names":[]}

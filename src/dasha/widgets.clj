@@ -1,6 +1,7 @@
 (ns dasha.widgets
   (:require [clojure.core.async :as async :refer [<! >!! chan go-loop]]
-            [dasha.widgets.random :as random]))
+            [dasha.widgets.random :as random]
+            [dasha.widgets.chart :as chart]))
 
 (def management-channel (atom nil))
 
@@ -10,7 +11,7 @@
         multiplier (async/mult in)
         mixer (async/mix out)]
     (async/admix mixer (random/widget multiplier :random))
-    (async/admix mixer (random/widget multiplier :widget2))
+    (async/admix mixer (chart/widget multiplier :widget2 "Random Live Chart"))
     (reset! management-channel in)
     out))
 

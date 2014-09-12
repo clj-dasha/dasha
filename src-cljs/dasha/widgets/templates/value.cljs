@@ -1,13 +1,11 @@
 (ns dasha.widgets.templates.value
   (:require [reagent.core :as reagent :refer [atom]]))
 
-(defn row [columns] [:div.row columns])
-
 (defn component
   [doc]
   (fn
     []
-    [row
+    [:div.row
      [:div.col-lg-2
       [:div.widget.style1.navy-bg
        [:div.row.vertical-align
