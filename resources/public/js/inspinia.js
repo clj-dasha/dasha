@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     // MetsiMenu
-    $('#side-menu').metisMenu();
+    //$('#side-menu').metisMenu();
 
     // Collapse ibox function
     $('.collapse-link').click( function() {
@@ -34,9 +34,9 @@ $(document).ready(function () {
     });
 
     // Append config box / Only for demo purpose
-    $.get("skin-config.html", function (data) {
-        $('body').append(data);
-    });
+//     $.get("skin-config.html", function (data) {
+//         $('body').append(data);
+//     });
 
     // minimalize menu
     $('.navbar-minimalize').click(function () {
@@ -51,17 +51,17 @@ $(document).ready(function () {
     })
 
     // Full height of sidebar
-    function fix_height() {
-        var heightWithoutNavbar = $("body > #wrapper").height() - 61;
-        $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
-    }
-    fix_height();
+//     function fix_height() {
+//         var heightWithoutNavbar = $("body > #wrapper").height() - 61;
+//         $(".sidebard-panel").css("min-height", heightWithoutNavbar + "px");
+//     }
+//     fix_height();
 
-    $(window).bind("load resize click scroll", function() {
-        if(!$("body").hasClass('body-small')) {
-            fix_height();
-        }
-    })
+//     $(window).bind("load resize click scroll", function() {
+//         if(!$("body").hasClass('body-small')) {
+//             fix_height();
+//         }
+//     })
 
     $("[data-toggle=popover]")
         .popover();
@@ -69,19 +69,19 @@ $(document).ready(function () {
 
 
 // For demo purpose - animation css script
-function animationHover(element, animation){
-    element = $(element);
-    element.hover(
-        function() {
-            element.addClass('animated ' + animation);
-        },
-        function(){
-            //wait for animation to finish before removing classes
-            window.setTimeout( function(){
-                element.removeClass('animated ' + animation);
-            }, 2000);
-        });
-}
+// function animationHover(element, animation){
+//     element = $(element);
+//     element.hover(
+//         function() {
+//             element.addClass('animated ' + animation);
+//         },
+//         function(){
+//             //wait for animation to finish before removing classes
+//             window.setTimeout( function(){
+//                 element.removeClass('animated ' + animation);
+//             }, 2000);
+//         });
+// }
 
 // Minimalize menu when screen is less than 768px
 $(function() {
