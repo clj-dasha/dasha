@@ -2,6 +2,10 @@
  "file":
  "/home/sherpc/projects/clojure/dasha/resources/public/js/dasha/widgets.js",
  "sources":["widgets.cljs"],
- "lineCount":10,
- "mappings":";AAAA",
- "names":[]}
+ "lineCount":18,
+ "mappings":
+ ";AAAA;;;;;;;AAIA,AAAKA,sBAAM,4BAAA,5BAACC;AAEZ,8BAAA,0BAAA,xDAAMC,wDAEJ,0EAAA,tEAAMC,MAAI,4BAAA,5BAACF,gEACT;oBAAA,AAAA,0FAAA,0DAAA,mFAAA,oEAAA,mFAAA,4FAAA,mFAAA,yFAAA,mFAAA,qEAAA,mFAAA,sGAAA,mFAAA,2FAAA,mFAAA,oEAAA;;;;AAQJ,2BAAA,uBAAA,lDAAMG,kDACJ,+CAAA,xCAACC,2HAA0BH,oCAAe,wBAAA,xBAAiBI",
+ "names":
+ ["dasha.widgets/state", "reagent.core/atom",
+  "dasha.widgets/random-widget", "doc", "dasha.widgets/init!",
+  "reagent.core/render-component", "js/document"]}

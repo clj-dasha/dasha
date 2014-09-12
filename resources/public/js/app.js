@@ -14,9 +14,8 @@ goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', '
 goog.addDependency("../clojure/set.js", ['clojure.set'], ['cljs.core']);
 goog.addDependency("../taoensso/encore.js", ['taoensso.encore'], ['goog.net.XhrIoPool', 'goog.net.XhrIo', 'goog.string', 'goog.Uri.QueryData', 'cljs.core', 'goog.string.StringBuffer', 'goog.net.EventType', 'clojure.set', 'goog.structs', 'goog.string.format', 'clojure.string', 'cljs.reader', 'goog.events', 'goog.net.ErrorCode']);
 goog.addDependency("../taoensso/sente.js", ['taoensso.sente'], ['cljs.core', 'taoensso.sente.interfaces', 'cljs.core.async', 'clojure.string', 'taoensso.encore']);
-goog.addDependency("../dasha/core.js", ['dasha.core'], ['dasha.routing', 'cljs.core', 'cljs.core.async', 'taoensso.sente']);
-goog.addDependency("../reagent/debug.js", ['reagent.debug'], ['cljs.core']);
 goog.addDependency("../reagent/impl/reactimport.js", ['reagent.impl.reactimport'], ['cljs.core']);
+goog.addDependency("../reagent/debug.js", ['reagent.debug'], ['cljs.core']);
 goog.addDependency("../reagent/impl/util.js", ['reagent.impl.util'], ['reagent.impl.reactimport', 'cljs.core', 'reagent.debug', 'clojure.string']);
 goog.addDependency("../reagent/ratom.js", ['reagent.ratom'], ['cljs.core']);
 goog.addDependency("../reagent/impl/batching.js", ['reagent.impl.batching'], ['reagent.impl.util', 'reagent.ratom', 'cljs.core', 'reagent.debug', 'clojure.string']);
@@ -26,3 +25,4 @@ goog.addDependency("../reagent/core.js", ['reagent.core'], ['reagent.impl.util',
 goog.addDependency("../clojure/walk.js", ['clojure.walk'], ['cljs.core']);
 goog.addDependency("../reagent_forms/core.js", ['reagent_forms.core'], ['goog.string', 'reagent.core', 'cljs.core', 'goog.string.format', 'clojure.string', 'clojure.walk']);
 goog.addDependency("../dasha/widgets.js", ['dasha.widgets'], ['reagent.core', 'cljs.core', 'reagent_forms.core']);
+goog.addDependency("../dasha/core.js", ['dasha.core'], ['dasha.routing', 'cljs.core', 'cljs.core.async', 'taoensso.sente', 'dasha.widgets']);
