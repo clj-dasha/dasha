@@ -7,7 +7,7 @@
   [data]
   (.log js/console (str data)))
 
-(def widgets {:widget1 #(log (str "Widget #1 received " % ))
+(def widgets {:random #(log (str "Widget #1 received " % ))
               :widget2 #(log (str "Widget #2 received " % ))})
 
 (def widget-keys (keys widgets))

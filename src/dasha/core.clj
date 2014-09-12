@@ -5,7 +5,9 @@
   (:require [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.reload :as reload]
             [compojure.route :as route]
-            [taoensso.sente :as sente]))
+            [taoensso.sente :as sente]
+            [clojure.core.async :as async :refer [<! go-loop]]
+            [dasha.widgets :as widgets]))
 
 (let [{:keys [ch-recv send-fn ajax-post-fn ajax-get-or-ws-handshake-fn
               connected-uids]}
@@ -16,7 +18,6 @@
   (def chsk-send!                    send-fn) ; ChannelSocket's send API fn
   (def connected-uids                connected-uids) ; Watchable, read-only atom
   )
-
 
 (defroutes all-routes
   (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
@@ -32,7 +33,14 @@
 (defn in-dev? [args] true) ;; TODO read a config variable from command line, env, or file?
 
 (defn -main [& args] ;; entry point, lein run will pick up and start from here
-  (run-server handler {:port 8080}))
+  (let [server (run-server handler {:port 8080})
+        widgets-channel (widgets/start)]
+    (go-loop []
+      (let [new-data (<! widgets-channel)]
+        (println new-data)
+        (chsk-send! nil [:dasha.core/test new-data]))
+      (recur))
+    server))
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget1 :data {:new-value 12}}])
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget2 :data {:new-value "test"}}])
 ;;(def s (-main))
