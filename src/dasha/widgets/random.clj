@@ -1,9 +1,7 @@
 (ns dasha.widgets.random
   (:require [clojure.core.async :as async :refer [<! >! go-loop chan alt!]]))
 
-(def widget-key :random)
-
-(defn widget [multiplier]
+(defn widget [multiplier widget-key]
   (let [in (chan)
         out (chan)]
     (async/tap multiplier in)

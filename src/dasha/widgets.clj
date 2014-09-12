@@ -9,7 +9,8 @@
         out (chan)
         multiplier (async/mult in)
         mixer (async/mix out)]
-    (async/admix mixer (random/widget multiplier))
+    (async/admix mixer (random/widget multiplier :random))
+    (async/admix mixer (random/widget multiplier :widget2))
     (reset! management-channel in)
     out))
 

@@ -2,15 +2,14 @@
   (:require-macros [cljs.core.async.macros :as asyncm :refer (go go-loop)])
   (:require [cljs.core.async :as async :refer (<! >! put! chan)]
             [reagent.core :as reagent]
-            [dasha.widgets :as rw]))
+            [dasha.widgets.templates.value :as v]))
 
 (defn log
   [data]
   (.log js/console (str data)))
 
-(def widgets {:random rw/widget
-              :widget2 {:update #(log (str "Widget #2 received " % ))
-                        :component #(fn [] [:div "hello"])}})
+(def widgets {:random (v/create {:value 123 :icon :i.fa.fa-random.fa-3x})
+              :widget2 (v/create {:value 0 :icon :i.fa.fa-refresh.fa-3x})})
 
 (def widget-keys (keys widgets))
 
