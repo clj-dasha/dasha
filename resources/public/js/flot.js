@@ -1,5 +1,5 @@
-var runFlot = function() {
-    var container = $("#widget2 .flot-chart");
+var runFlot = function(c) {
+    var container = $(c).find(".flot-chart");
     //var container = $(c);
 
     // Determine how many data points to keep based on the placeholder's initial size;
