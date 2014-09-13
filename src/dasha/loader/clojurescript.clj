@@ -1,4 +1,4 @@
-(ns dasha.loader.clojure
+(ns dasha.loader.clojurescript
   (:require [clojure.tools.reader :as reader]
             [clojure.tools.reader.reader-types :as readers]
             [cljs.compiler :as c]
