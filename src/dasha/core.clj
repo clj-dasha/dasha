@@ -1,48 +1,40 @@
 (ns dasha.core
-  (:use [org.httpkit.server :only [run-server]]
-        [compojure.core :only [defroutes GET POST]]
-        [compojure.handler :only [site]])
-  (:require [ring.middleware.params :refer [wrap-params]]
-            [ring.middleware.reload :as reload]
-            [compojure.route :as route]
-            [taoensso.sente :as sente]
-            [clojure.core.async :as async :refer [<! go-loop]]
-            [dasha.widgets :as widgets]))
+  (:require
+    [clojure.core.async :as cca]
+    [org.httpkit.server :as ohs]
+    [org.httpkit.timer :as oht]
+    [compojure.handler :as ch]
+    [compojure.core :as cc]
+    [compojure.route :as cr]
+    [dasha.socket :as ds]
+    [hiccup.core :as hc]
+    [hiccup.page :as hp]))
 
-(let [{:keys [ch-recv send-fn ajax-post-fn ajax-get-or-ws-handshake-fn
-              connected-uids]}
-      (sente/make-channel-socket! {})]
-  (def ring-ajax-post                ajax-post-fn)
-  (def ring-ajax-get-or-ws-handshake ajax-get-or-ws-handshake-fn)
-  (def ch-chsk                       ch-recv) ; ChannelSocket's receive channel
-  (def chsk-send!                    send-fn) ; ChannelSocket's send API fn
-  (def connected-uids                connected-uids) ; Watchable, read-only atom
-  )
+(defn layout  [title & content]
+  (hp/html5
+    [:head
+     [:title title]
+     #_(hp/include-css "/style.css")
+     [:body
+      [:h1 "Hello"]
+      [:div  {:class "container"} content]
+      ; (hp/include-js "http://fb.me/react-0.9.0.js")
+      ; (hp/include-js "/goog/base.js")
+      ;[:script {:type "text/javascript"} "goog.require(\"dasha.test\")"]
+      (hp/include-js "/test.js")
+      ]]))
 
-(defroutes all-routes
-  (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
-  (POST "/chsk" req (ring-ajax-post                req))
-  (route/resources "/")
-  (route/not-found "<p>Page not found.</p>")) ;; all other, return 404
 
-(def handler
-  (-> #'all-routes
-      reload/wrap-reload
-      wrap-params))
+(defn index-page  [req]
+  {:status  200
+   :headers  {"Content-Type" "text/html"}
+   :body    (layout "Dasha" [:div#app])})
 
-(defn in-dev? [args] true) ;; TODO read a config variable from command line, env, or file?
+(cc/defroutes routes
+  (cc/GET "/"  [] index-page)
+  (cc/GET "/async"  [] #'ds/async-handler)
+  (cr/resources "/")
+  (cr/not-found "<p>Page not found.</p>"))
 
-(defn -main [& args] ;; entry point, lein run will pick up and start from here
-  (let [server (run-server handler {:port 8080})
-        widgets-channel (widgets/start)]
-    (go-loop []
-      (let [new-data (<! widgets-channel)]
-        ;;(println new-data)
-        (chsk-send! nil [:dasha.core/test new-data]))
-      (recur))
-    server))
-;;(chsk-send! nil [:dasha.core/test {:widget :widget1 :data {:new-value 12}}])
-;;(chsk-send! nil [:dasha.core/test {:widget :widget2 :data {:new-value "test"}}])
-(def s (-main))
-;;(widgets/stop)
-;;(s)
+(defn start []
+  (ohs/run-server (ch/site #'routes)  {:port 8080}))

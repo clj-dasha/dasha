@@ -11,10 +11,7 @@
 
 (defn route-receive
   [[event {:keys [widget data] :as all}]]
-  ;;(log (str "received " event " with data: " all))
-  (if-let [w (widget r/all)]
-    (go
-      (>! (:channel w) data))))
+  (log (str "received " event " with data: " all)))
 
 (defn route-event
   [[event-id data :as all]]

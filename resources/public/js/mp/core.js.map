@@ -1,8 +1,0 @@
-{"version":3,
- "file":
- "/home/sherpc/projects/clojure/dasha/resources/public/js/mp/core.js",
- "sources":["core.cljs"],
- "lineCount":8,
- "mappings":
- ";AAAA;;AAEA,cAAA,oBAAA,lCAAMA,4BACHC,MACD,OAAMC,YAAW,gDAAKD;;AAExB,sBAAA,tBAACD",
- "names":["mp.core/log", "data", "js/console"]}
