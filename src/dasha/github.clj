@@ -6,7 +6,17 @@
   (gists/specific-gist
     (last (str/split url #"/"))))
 
+(defn- predicate [ext]
+  (fn [x] (.endsWith (:filename x) ext)))
+
+(defn- get-raw [pred collection]
+  (:raw_url (first (filter pred collection))))
+
 (defn get-raws-from-gist-url [url]
-  (let [g (get-gist-from-url url)]
-    (for [[_ v] (:files g)]
-      (:raw_url v))))
+  (let [gist (get-gist-from-url url)]
+    (let [files (:files gist)
+          sets (for [[_ v] files] v)
+          c (predicate "clj")
+          cj (predicate "cljs")]
+      {:backend  (get-raw c sets)
+       :frontend (get-raw cj sets)})))
