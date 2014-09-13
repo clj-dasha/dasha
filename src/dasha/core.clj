@@ -1,7 +1,9 @@
 (ns dasha.core
   (:use [org.httpkit.server :only [run-server]]
         [compojure.core :only [defroutes GET POST]]
-        [compojure.handler :only [site]])
+        [compojure.handler :only [site]]
+        [dasha.new-widget]
+        [ring.util.response :only [redirect]])
   (:require [ring.middleware.params :refer [wrap-params]]
             [ring.middleware.reload :as reload]
             [compojure.route :as route]
@@ -20,8 +22,11 @@
   )
 
 (defroutes all-routes
+  (GET  "/" [] (redirect "index.html"))
   (GET  "/chsk" req (ring-ajax-get-or-ws-handshake req))
   (POST "/chsk" req (ring-ajax-post                req))
+  (GET  "/newwidget" [] new-widget-form)
+  (POST  "/newwidget" [widget-url] (new-widget widget-url))
   (route/resources "/")
   (route/not-found "<p>Page not found.</p>")) ;; all other, return 404
 
@@ -43,6 +48,6 @@
     server))
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget1 :data {:new-value 12}}])
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget2 :data {:new-value "test"}}])
-(def s (-main))
+;(def s (-main))
 ;;(widgets/stop)
 ;;(s)
