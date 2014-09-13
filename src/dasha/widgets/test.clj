@@ -8,24 +8,27 @@
                                                   timeout
                                                   close!]]))
 
+(def options {:query-params {:q "Saint-Petersburg"}})
+
+(defn get-weather [q]
+  (let [chan (chan)
+        callback (fn [{:keys [status headers body error opts]}]
+                   (go (>! chan body)))
+        ]
+    (go-loop [step 0]
+             (<! (timeout 2000))
+             (http/get "http://api.openweathermap.org/data/2.5/weather" {:query-params {:q q}} callback)
+             (if (< step 1000)
+               (recur (inc step))
+               (close! chan)
+               ))
+    chan))
+
 (defn print-weather [responce]
   (let [main-weather (:main responce)]
     (println "Temperature is " (:temp main-weather)
              " atmospheric pressure is " (:pressure main-weather))))
 
-(def channel (chan))
-
-(go-loop [] (let [body (<! channel)]
-      (print-weather (json/parse-string body true))
-      (recur)))
-
-(defn callback [{:keys [status headers body error opts]}]
-  (go (>! channel body)))
-
-(def options {:query-params {:q "Saint-Petersburg"}})
-
-(go-loop [step 0]
-         (<! (timeout 2000))
-         (http/get "http://api.openweathermap.org/data/2.5/weather" options callback)
-         (if (< step 10)
-           (recur (inc step))))
+#_(go-loop [] (let [body (<! channel)]
+              (print-weather (json/parse-string body true))
+              (recur)))

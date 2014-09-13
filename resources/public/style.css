@@ -1,0 +1,13 @@
+body {
+    background: #222;
+}
+.wgt {
+    background: brown;
+    color: white;
+    margin: 2vw 2vh;
+    padding: 2vw 2vh;
+    display: inline-block;
+    height: 45vh;
+    width: 45vw;
+    font-size: 10vh;
+}

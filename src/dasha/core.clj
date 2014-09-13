@@ -14,21 +14,29 @@
   (hp/html5
     [:head
      [:title title]
-     #_(hp/include-css "/style.css")
-     [:body
-      [:h1 "Hello"]
-      [:div  {:class "container"} content]
-      ; (hp/include-js "http://fb.me/react-0.9.0.js")
-      ; (hp/include-js "/goog/base.js")
-      ;[:script {:type "text/javascript"} "goog.require(\"dasha.test\")"]
+     (hp/include-css "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+     (hp/include-css "/style.css")
+     [:body {:ng-app "app"}
+      content
+      (hp/include-js "//code.angularjs.org/1.2.24/angular.min.js")
       (hp/include-js "/test.js")
       ]]))
 
-
-(defn index-page  [req]
+(defn render [& cnt]
   {:status  200
    :headers  {"Content-Type" "text/html"}
-   :body    (layout "Dasha" [:div#app])})
+   :body    (apply layout "Dasha" cnt)})
+
+
+(defn index-page  [req]
+  (render
+    [:div.wgt {:ng-controller "main"}  
+     [:b "{{weather.name}}"]
+     [:br]
+     [:span "Temp: {{(weather.main.temp - 32)/1.8 | number}}"]
+     [:br]
+     [:span "Wind {{weather.wind.speed}} {{weather.wind.deg}}"]
+     ]))
 
 (cc/defroutes routes
   (cc/GET "/"  [] index-page)

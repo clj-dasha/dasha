@@ -1,6 +1,7 @@
 (ns dasha.socket
   (:require
     [clojure.core.async :as cca]
+    [dasha.widgets.test :as dwt]
     [org.httpkit.server :as ohs]
     [org.httpkit.timer :as oht]))
 
@@ -30,15 +31,13 @@
       channel
       (fn  [data] (to-all (str data))))))
 
-(def nonstop (atom true))
-(defn stop [] (swap! nonstop (fn [x] false)))
-
-(defn publish []
-  (swap! nonstop (constantly true))
-  (cca/go
-    (while  @nonstop
-      (cca/<!  (cca/timeout 1000))
-      (println "tick")
-      (to-all {:rand (rand 10)}))))
-
-;(to-all "hello")
+(cca/go-loop [c (dwt/get-weather "Sankt-Peterburg")]
+         (when-let [res (cca/<! c)]
+           (to-all (str res))
+           (recur c)
+           ))
+(cca/go-loop [c (dwt/get-weather "Moscow")]
+         (when-let [res (cca/<! c)]
+           (to-all (str res))
+           (recur c)
+           ))
