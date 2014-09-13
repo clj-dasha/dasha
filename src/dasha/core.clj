@@ -30,7 +30,7 @@
 
 (defn index-page  [req]
   (render
-    [:div.wgt {:ng-controller "main"}  
+    [:div.wgt {:ng-controller "main"}
      [:b "{{weather.name}}"]
      [:br]
      [:span "Temp: {{(weather.main.temp - 32)/1.8 | number}}"]
