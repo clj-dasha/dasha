@@ -1,10 +1,6 @@
 # dasha
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+Group chat: https://gitter.im/sherpc/dasha?utm_source=badge&utm_medium=badge&utm_campaign=share-badge
 
 ## Usage
 
