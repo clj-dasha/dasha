@@ -43,6 +43,6 @@
     server))
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget1 :data {:new-value 12}}])
 ;;(chsk-send! nil [:dasha.core/test {:widget :widget2 :data {:new-value "test"}}])
-;;(def s (-main))
+(def s (-main))
 ;;(widgets/stop)
 ;;(s)

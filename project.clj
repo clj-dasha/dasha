@@ -33,6 +33,5 @@
       :output-to "resources/public/js/app.js",
       :output-wrapper false,
       :pretty-print false}}]}
-  :main ^:skip-aot dasha.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
