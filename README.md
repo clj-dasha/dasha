@@ -10,6 +10,9 @@ FIXME: explanation
 
 ## Installation
 
+
+nginx config:
+
 ```
 upstream dasha {
   server <dasha-host>:<dasha-port>;
