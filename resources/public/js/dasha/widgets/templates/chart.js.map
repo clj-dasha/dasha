@@ -2,12 +2,14 @@
  "file":
  "/home/sherpc/projects/clojure/dasha/resources/public/js/dasha/widgets/templates/chart.js",
  "sources":["chart.cljs"],
- "lineCount":19,
+ "lineCount":21,
  "mappings":
- ";AAAA;;;;;AAGA,gDAAA,+BAAA,/EAAMA,0EACHC,KACD,oBAAA,AAAA,0FAAA,0DAAA,mFAAA,qEAAA,mFAAA,6FAAA,mFAAA,0EAAA,mFAAA,sLAAA,mFAAA,6EAAA,mFAAA,vXAKW,AAAA,oFAAA,AAAAC,0BAASD;;;AAItB,0CAAA,yBAAA,nEAAME,8DACHF,KACD,kGAAA,2CAAA,tIAACG,8BACC,AAACJ,wDAAgBC,oIACK,kBAAA,PAAKI,OAAM,OAAGC,eAAkB,AAACC,gCAAiBF;;;AAE5E,uCAAA,gCAAA,vEAAMG,wDACHC,eACD,wHAAA,AAAA,kDAAA,iEAAA,yDAAA,hSAAME,QAAM,AAACC,4BAAKH,mBACZI,IAAE,AAACV,kDAAUQ,wHACLE;kBAFdH,kBAAA,AAGY,6CAAAA,tCAACI,gCAAOH",
+ ";AAAA;;;;;;;AAIA,gDAAA,+BAAA,/EAAMA,0EACHC,KACD,oBAAA,AAAA,0FAAA,0DAAA,mFAAA,qEAAA,mFAAA,6FAAA,mFAAA,0EAAA,mFAAA,sLAAA,mFAAA,6EAAA,mFAAA,vXAKW,AAAA,oFAAA,AAAAC,0BAASD;;;AAItB,0CAAA,qCAAA,/EAAME,8DACHF,IAAIG,aACL,kGAAA,2CAAA,tIAACC,8BACC,AAACL,wDAAgBC,oIACK,kBAAA,PAAKK,OAAM,OAACF,sBAAY,AAACG,gCAAiBD;;;AAEpE,uCAAA,gCAAA,vEAAME,wDACHC,eACD,4bAAA,AAAA,kDAAA,iEAAA,yDAAA,pmBAAME,QAAM,AAACC,4BAAK,wCAAA,2CAAA,qDAAA,xIAACC,0BAAMJ,6JACnBK,OAAK,AAACC,2DACNC,IAAE,AAACb,kDAAUQ,MAAM,AAAA,wFAASG,wHACpBE;kBAHdN,kBAAA,AAIY,8GAAAA,vGAAC,AAAA,uFAASI",
  "names":
  ["dasha.widgets.templates.chart/chart-component", "doc",
   "cljs.core/deref", "dasha.widgets.templates.chart/component",
-  "cljs.core/with-meta", "this", "js/window", "reagent.core/dom-node",
-  "dasha.widgets.templates.chart/create", "initial-state",
-  "p1__10540#", "state", "reagent.core/atom", "c", "cljs.core/reset!"]}
+  "render-flot", "cljs.core/with-meta", "this",
+  "reagent.core/dom-node", "dasha.widgets.templates.chart/create",
+  "initial-state", "p1__14586#", "state", "reagent.core/atom",
+  "cljs.core/merge", "flot",
+  "dasha.widgets.templates.chart.data/get-flot", "c"]}

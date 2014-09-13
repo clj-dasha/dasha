@@ -9,7 +9,8 @@ goog.addDependency("../reagent/impl/batching.js", ['reagent.impl.batching'], ['r
 goog.addDependency("../reagent/impl/component.js", ['reagent.impl.component'], ['reagent.impl.util', 'reagent.ratom', 'cljs.core', 'reagent.impl.batching', 'reagent.debug']);
 goog.addDependency("../reagent/impl/template.js", ['reagent.impl.template'], ['reagent.impl.util', 'reagent.ratom', 'cljs.core', 'reagent.impl.batching', 'reagent.impl.component', 'reagent.debug', 'clojure.string']);
 goog.addDependency("../reagent/core.js", ['reagent.core'], ['reagent.impl.util', 'reagent.ratom', 'cljs.core', 'reagent.impl.template', 'reagent.impl.batching', 'reagent.impl.component']);
-goog.addDependency("../dasha/widgets/templates/chart.js", ['dasha.widgets.templates.chart'], ['reagent.core', 'cljs.core']);
+goog.addDependency("../dasha/widgets/templates/chart/data.js", ['dasha.widgets.templates.chart.data'], ['cljs.core']);
+goog.addDependency("../dasha/widgets/templates/chart.js", ['dasha.widgets.templates.chart'], ['reagent.core', 'cljs.core', 'dasha.widgets.templates.chart.data']);
 goog.addDependency("../dasha/widgets/templates/value.js", ['dasha.widgets.templates.value'], ['reagent.core', 'cljs.core']);
 goog.addDependency("../cljs/core/async/impl/protocols.js", ['cljs.core.async.impl.protocols'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/buffers.js", ['cljs.core.async.impl.buffers'], ['cljs.core', 'cljs.core.async.impl.protocols']);

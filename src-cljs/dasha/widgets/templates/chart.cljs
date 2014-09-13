@@ -1,5 +1,6 @@
 (ns dasha.widgets.templates.chart
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [dasha.widgets.templates.chart.data :as d]))
 
 (defn chart-component
   [doc]
@@ -13,14 +14,16 @@
         [:div.flot-chart ]]]]]))
 
 (defn component
-  [doc]
+  [doc render-flot]
   (with-meta
     (chart-component doc)
-    {:component-did-mount (fn [this] (. js/window runFlot (reagent/dom-node this)))}))
+    {:component-did-mount (fn [this] (render-flot (reagent/dom-node this)))}))
 
 (defn create
   [initial-state]
-  (let [state (atom initial-state)
-        c (component state)]
+  (let [state (atom (merge initial-state {:data []}))
+        flot (d/get-flot)
+        c (component state (:render flot))]
     {:component c
-     :update #(reset! state %)}))
+     :update #((:update flot) %)}))
+

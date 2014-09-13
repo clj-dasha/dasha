@@ -1,4 +1,5 @@
 var runFlot = function(c) {
+    console.log(c);
     var container = $(c).find(".flot-chart");
     //var container = $(c);
 
