@@ -3,6 +3,7 @@
             [clojure.tools.reader.reader-types :as readers]
             [cljs.compiler :as c]
             [cljs.closure :as cc]
+            [cljs.analyzer :as ana]
             [cljs.env :as env])
   (:import [java.io StringReader]))
 
@@ -27,10 +28,12 @@
 (defn- read-first-form [str]
   (first (forms-seq (string-reader str))))
 
-(defn emit-js
-  ([cljs-string]
-     (emit-js cljs-string :advanced))
-  ([cljs-string optimisations]
-     (let [form (read-first-form cljs-string)]
+(defn string->js
+  ([string]
+     (emit-js-from-string string :advanced))
+  ([string optimisations]
+     (let [form (read-first-form string)]
        (cc/optimize {:optimizations optimisations}
          (emit-str (ana/analyze user-env form))))))
+
+(def url->js (comp emit-js-from-string slurp))
