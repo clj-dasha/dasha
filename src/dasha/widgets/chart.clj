@@ -6,15 +6,13 @@
         out (chan)]
     (async/tap multiplier in)
     (go-loop []
-      (alt!
+             (alt!
+               (async/timeout 1000) ([_] (do (>! out {:widget widget-key
+                                                      :data {:value (rand-nth (range 100))
+                                                             :title title}})
+                                             (recur)))
 
-        ;; loop
-        (async/timeout 1000) ([_] (do (>! out {:widget widget-key
-                                               :data {:value (rand-nth (range 100))
-                                                      :title title}})
-                                      (recur)))
-
-        ;; stop
-        in nil))
+               ;; stop
+               in nil))
     out))
 
