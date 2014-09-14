@@ -17,9 +17,7 @@
 (defn index-page  []
   (layout
     "Dasha"
-    [:div.wgt {:ng-controller "main"}
-     [:b "{{weather.name}}"]
-     [:br]
-     [:span "Temp: {{(weather.main.temp - 32)/1.8 | number}}"]
-     [:br]
-     [:span "Wind {{weather.wind.speed}} {{weather.wind.deg}}"]]))
+    [:div.wgt.wthr {:ng-controller "main"}
+     [:span.city "{{weather.name}}"]
+     [:span.tmp " {{(weather.main.temp - 273.15) | number:0}} &#8451;"]
+     [:span.prs "{{(weather.main.pressure * 0.0750061682704) | number:1}} mmHg"]]))

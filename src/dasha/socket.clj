@@ -1,9 +1,10 @@
 (ns dasha.socket
   (:require
     [clojure.core.async :as cca]
-    [dasha.widgets.test :as dwt]
+    [dasha.widgets.weather :as dww]
     [org.httpkit.server :as ohs]
     [org.httpkit.timer :as oht]
+    [clojure.core.async :refer [chan go go-loop <! >! timeout]]
 
     [dasha.widgets :as dw]))
 
@@ -33,14 +34,10 @@
 
     (ohs/on-receive ws #(println "Data from socket " %))))
 
-(cca/go-loop
-  [c (dwt/get-weather "New-York")]
-  (when-let [res (cca/<! c)]
-    (send-to-all (str res))
-    (recur c)))
 
-; (cca/go-loop [c (dwt/get-weather "Moscow")]
-;          (when-let [res (cca/<! c)]
-;            (to-all (str res))
-;            (recur c)
-;            ))
+(defn start []
+  (let [out (chan)]
+    (go-loop [] (send-to-all (str (<! out))) (recur))
+    (dww/poll-weather out {:qs ["Saint Petersburg" "Moscow" "Kiev"]})))
+
+(start)
