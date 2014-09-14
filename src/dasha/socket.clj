@@ -1,10 +1,14 @@
 (ns dasha.socket
   (:require
+    [clojure.core.async :refer [chan go go-loop <! >! timeout close!]]
     [clojure.core.async :as cca]
+
     [dasha.widgets.weather :as dww]
+    [dasha.widgets.clojure :as dwc]
+
     [org.httpkit.server :as ohs]
     [org.httpkit.timer :as oht]
-    [clojure.core.async :refer [chan go go-loop <! >! timeout]]
+    [cheshire.core :as cc]
 
     [dasha.widgets :as dw]))
 
@@ -17,7 +21,7 @@
            (remove #(= c %) cs))))
 
 (defn send-to-all [msg]
-  (doseq [c @clients] (try (ohs/send! c msg))))
+  (doseq [c @clients] (try (ohs/send! c (cc/generate-string msg)))))
 
 (defn async-handler [req]
   (ohs/with-channel req ws
@@ -36,8 +40,14 @@
 
 
 (defn start []
-  (let [out (chan)]
-    (go-loop [] (send-to-all (str (<! out))) (recur))
-    (dww/poll-weather out {:qs ["Saint Petersburg" "Moscow" "Kiev"]})))
+  (let [out (chan)
+        ctrl (chan)]
+    (go-loop [] (send-to-all (<! out)) (recur))
 
-(start)
+    (dww/widget ctrl out {:t 3000 :qs ["Saint Petersburg" "Moscow" "Kiev"]})
+    (dwc/widget ctrl out {:t 10000})
+
+    (fn [] (go (>! ctrl :stop) (close! ctrl)))))
+
+(def stop (start))
+;(stop)
