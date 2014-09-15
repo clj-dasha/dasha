@@ -2,14 +2,42 @@ body {
   background: #222;
 }
 .wgt {
-  margin: 1vh 0.25vw 0.5vh 0.5vw;
+  margin: 0.5vh 0.25vw 0.25vh 0.5vw;
   padding: 4vh 4vw;
   display: inline-block;
-  height: 44vh;
-  width: 49vw;
+  height: 48vh;
+  width: 48vw;
   font-size: 4vmin;
   vertical-align: top;
   overflow: hidden;
+}
+.wgt .small {
+  font-size: 2vmin;
+}
+.hgrp {
+  display: inline-block;
+}
+.hgrp .wgt{
+  display: block;
+}
+.trvs {
+  color: white;
+  background: #029E77;
+}
+.trvs .state {
+  display: inline-block;
+  width: 2vmin;
+  height: 2vmin;
+  background: white;
+}
+.trvs .state.res-0 {
+  background: white;
+}
+.trvs .state.fixed {
+  background: white;
+}
+.trvs .state.res-1 {
+  background: brown;
 }
 .wgt .title  {
   font-size: 7vmin;

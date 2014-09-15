@@ -5,6 +5,7 @@
 
     [dasha.widgets.weather :as dww]
     [dasha.widgets.clojure :as dwc]
+    [dasha.widgets.travis :as dwt]
 
     [org.httpkit.server :as ohs]
     [org.httpkit.timer :as oht]
@@ -44,10 +45,10 @@
         ctrl (chan)]
     (go-loop [] (send-to-all (<! out)) (recur))
 
-    (dww/widget ctrl out {:t 3000 :qs ["Saint Petersburg" "Moscow" "Kiev"]})
+    (dww/widget ctrl out {:t 10000 :qs ["Saint Petersburg" "Moscow" "Kiev"]})
     (dwc/widget ctrl out {:t 10000})
+    (dwt/widget ctrl out {:t 10000 :qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]})
 
     (fn [] (go (>! ctrl :stop) (close! ctrl)))))
-
 (def stop (start))
-;(stop)
+(stop)
