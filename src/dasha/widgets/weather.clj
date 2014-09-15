@@ -1,20 +1,11 @@
 (ns dasha.widgets.weather
   (:require [org.httpkit.client :as http]
-            [dasha.widgets.util :as dwu :refer [ctrl-timeout from-json]]
-            [clojure.core.async :as async :refer [go go-loop <! >! timeout alts!]]))
+            [dasha.widgets.util :as dwu :refer [def-widget from-json rotate]]))
 
 (def url "http://api.openweathermap.org/data/2.5/weather")
 
-(defn rotate [coll]
-  (into (vec (rest coll)) [(first coll)]))
-
-(defn msg [json]
-  {:id "weather"
-   :data (from-json json)})
-
-(defn widget [ctrl out cfg]
-  (go-loop [cfg cfg]
-    (ctrl-timeout ctrl (or (:t cfg) 5000)
-      (http/get url {:query-params {:q (first (:qs cfg))}}
-                (fn [{b :body}] (go (>! out (msg b)))))
-      (recur (update-in cfg [:qs] rotate)))))
+(def-widget :weather
+  [out cfg]
+  (http/get url {:query-params {:q (first (:qs cfg))}}
+            (fn [{b :body}] (out (from-json b))))
+  (update-in cfg [:qs] rotate))

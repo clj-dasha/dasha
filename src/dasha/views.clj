@@ -42,5 +42,5 @@
          [:span.title "{{clj.title}}"]
          [:p "{{clj.text}}"]])
       (def-window 1
-        [:div.wgt.infoq {:ng-repeat "n in infoq.items"}
+        [:div.wgt.infoq {:ng-repeat "n in infoq"}
           [:span "{{n.title}}"]]))))
