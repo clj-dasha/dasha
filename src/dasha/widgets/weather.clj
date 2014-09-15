@@ -1,11 +1,7 @@
 (ns dasha.widgets.weather
   (:require [org.httpkit.client :as http]
-            [cheshire.core :as cc]
+            [dasha.widgets.util :as dwu :refer [ctrl-timeout from-json]]
             [clojure.core.async :as async :refer [go go-loop <! >! timeout alts!]]))
-
-(defmacro ctrl-timeout [ctrl t & body]
-  `(when (not= ~ctrl (second (alts! [~ctrl (timeout ~t)])))
-     ~@body))
 
 (def url "http://api.openweathermap.org/data/2.5/weather")
 
@@ -14,7 +10,7 @@
 
 (defn msg [json]
   {:id "weather"
-   :data (cc/parse-string json keyword)})
+   :data (from-json json)})
 
 (defn widget [ctrl out cfg]
   (go-loop [cfg cfg]

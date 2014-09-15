@@ -1,5 +1,6 @@
 body {
   background: #222;
+  color: white;
 }
 .wgt {
   margin: 0.5vh 0.25vw 0.25vh 0.5vw;
@@ -10,6 +11,8 @@ body {
   font-size: 4vmin;
   vertical-align: top;
   overflow: hidden;
+  color: white;
+  background: #02779E;
 }
 .wgt .small {
   font-size: 2vmin;
