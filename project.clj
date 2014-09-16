@@ -9,6 +9,7 @@
                  [hiccup "1.0.5"]
                  [hiccup "1.0.5"]
                  [clj-time "0.8.0"]
+                 [twitter-api "0.7.6"]
                  [http-kit "2.1.19"]
                  [org.clojure/core.async "0.1.338.0-5c5012-alpha"]
                  [ring/ring "1.3.1"] ]

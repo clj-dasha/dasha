@@ -1,6 +1,7 @@
 (ns dasha.widgets.infoq
   (:require [org.httpkit.client :as http]
             [hiccup.core :as hc]
+            [dasha.widgets.util :refer [icon]]
             [clojure.xml :as cx]))
 
 (def url "http://www.infoq.com/feed")
@@ -28,7 +29,7 @@
 (defn render [items]
   (let [post (rand-nth items)]
     {:color "gray"
-     :summary (hc/html [:h3 (:title post)])
+     :summary (hc/html [:h3 (icon :newspaper-o) " " (:title post)])
      :full    (hc/html [:h1 (:title post)]
                        [:hr]
                        [:p (:text post)])}))

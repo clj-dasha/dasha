@@ -39,11 +39,17 @@ html, body {
   font-size: 2vmin;
   line-height: 3vmin;
 }
+.a .micro {
+  font-size: 1vmin;
+}
+.main .micro {
+  font-size: 1vmin;
+}
 code, pre {
   margin-top: 2vmin;
   background: #222;
   color: white;
-  font-size: 3min;
+  font-size: 2vmin;
 }
 .main h1 {
   font-size: 7vmin;

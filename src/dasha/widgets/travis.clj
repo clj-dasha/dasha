@@ -1,6 +1,6 @@
 (ns dasha.widgets.travis
   (:require [org.httpkit.client :as http]
-            [dasha.widgets.util :refer [from-json rotate]]
+            [dasha.widgets.util :refer [from-json rotate icon]]
             [clj-time.format :as cf]
             [hiccup.core :as hc]))
 
@@ -19,10 +19,6 @@
 ; "duration":440,"commit":"46cd9cdc86b7cfebd88bcd02fdf1b27ffa00f2b4",
 ; "branch":"ids","message":"fixing","event_type":"push"}
 
-
-(defn icon [nm] [:i.fa {:class (str "fa-" (name nm))}])
-
-
 (defn build-status [b]
   (if-let [st (:result b)]
     (nth [(icon :smile-o) (icon :meh-o)] st)
@@ -30,10 +26,11 @@
 
 (defn render-build [b]
   [:span.small
-   [:b (:branch b) " " (build-status b)]
+   [:b (build-status b)]
    " "
    (fmt (:finished_at b))
-   "&nbsp;" [:span.small (:message b)]])
+   " " [:span.micro "[" (:branch b) "]"] " "
+   [:span.small (:message b)]])
 
 (defn render [repo bs]
   (let [st (:result (first bs))
@@ -53,4 +50,3 @@
     (http/get (str url  repo "/builds") opts
               (fn [{b :body}] (out (render repo (from-json b)))))
     (update-in cfg [:qs] rotate)))
-

@@ -1,6 +1,12 @@
 $(function(){
   var stack = []
   var soc = new WebSocket("ws://" + window.location.host +"/jeki/chan");
+  var stop = false;
+
+  $('body').click(function(){
+    stop = !stop
+    console.log('Stop', stop)
+  })
 
   function render(stack){
     for (var i=0; i< 4; i++){
@@ -12,6 +18,7 @@ $(function(){
     }
   }
   soc.onmessage = function(ev) {
+    if(stop){ return; }
     var data = JSON.parse(ev.data)
     stack.unshift(data)
     stack = stack.splice(0, 4)
