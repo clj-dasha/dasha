@@ -21,15 +21,15 @@ html, body {
   overflow: hidden;
 }
 .a h1 {
-  font-size: 5vmin;
+  font-size: 4vmin;
   font-width: bold;
 }
 .a h2 {
-  font-size: 4vmin;
+  font-size: 3.5vmin;
   font-width: bold;
 }
 .a h3 {
-  font-size: 4vmin;
+  font-size: 3.2vmin;
   font-width: bold;
 }
 .a big, .main big {

@@ -28,4 +28,7 @@ $(function(){
     console.log(stack)
     render(stack)
   };
+
+  // health browser
+  setTimeout(function(){ location.reload() }, 300000)
 })
