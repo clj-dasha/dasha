@@ -6,88 +6,66 @@ html, body {
   color: white;
   overflow: hidden;
 }
-.wnd {
-  height: 100vh;
-  width: 100vw;
+.as {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.as .a {
+  margin: 1vw 1vh;
+  padding: 3vh 3vw;
+  height: 31vh;
+  width: 31vw;
+  font-size: 3vmin;
+  vertical-align: top;
   overflow: hidden;
 }
-.wgt {
-  margin: 0.25vw 0.25vh;
+.a h1 {
+  font-size: 5vmin;
+  font-width: bold;
+}
+.a h2 {
+  font-size: 4vmin;
+  font-width: bold;
+}
+.a h3 {
+  font-size: 4vmin;
+  font-width: bold;
+}
+.a big, .main big {
+  font-size: 11vmin;
+}
+.a .small {
+  font-size: 2vmin;
+  line-height: 3vmin;
+}
+code, pre {
+  margin-top: 2vmin;
+  background: #222;
+  color: white;
+  font-size: 3min;
+}
+.main h1 {
+  font-size: 7vmin;
+  font-width: bold;
+}
+#i-1 {
+  background: #02779E;
+}
+#i-2 {
+  background: #b91d47;
+}
+#i-3 {
+  background: #029E77;
+}
+#i-4 {
+  margin: 1vw 1vh;
   padding: 4vh 4vw;
-  display: inline-block;
-  height: 49vh;
-  width: 49vw;
+  height: 97vh;
+  width: 66vw;
   font-size: 4vmin;
   vertical-align: top;
   overflow: hidden;
-  background: #02779E;
-}
-.wgt.dblh {
-  height: 98.5vh;
-  width: 49vw;
-}
-.wgt.dblw {
-  height: 49vh;
-  width 98.5vw;
-}
-.wnd .wgt:nth-child(odd){
-  background: #02779E;
-}
-.wnd .wgt:nth-child(even){
-  background: #02779E;
-}
-.wnd .wgt:nth-child(3n){
-  background: brown;
-}
-.wnd .wgt:nth-child(4n){
-}
-.wgt .small {
-  font-size: 2vmin;
-}
-.wgt .title {
-  font-weight: bold;
-}
-.hgrp {
   display: inline-block;
-}
-.hgrp .wgt{
-  display: block;
-}
-.wgt.trvs {
-  background: #029E77 !important;
-}
-.trvs .state {
-  display: inline-block;
-  width: 2vmin;
-  height: 2vmin;
-  background: white;
-}
-.trvs .state.res-0 {
-  background: white;
-}
-.trvs .state.fixed {
-  background: white;
-}
-.trvs .state.res-1 {
-  background: brown;
-}
-.wgt .title  {
-  font-size: 7vmin;
-  font-weight: bold;
-}
-.wgt.clj {
-  background: #02779E !important;
-}
-.wgt.wthr {
-  background: brown !important;
-}
-.wgt.wthr span  {
-  text-align: center;
-  font-size: 7vmin;
-  display: block;
-}
-.wgt.wthr .tmp {
-  font-size: 10vmin;
-  display: block;
-  text-align: center;
+  background: #da532c;
 }

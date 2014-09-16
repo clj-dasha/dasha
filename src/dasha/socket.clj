@@ -3,7 +3,10 @@
     [clojure.core.async :refer [chan go go-loop <! >! timeout close!]]
     [clojure.core.async :as cca]
 
+    [dasha.robin :as  dr]
+
     [dasha.widgets.weather :as dww]
+    [dasha.widgets.lines :as dwl]
     [dasha.widgets.clojure :as dwc]
     [dasha.widgets.travis :as dwt]
     [dasha.widgets.infoq :as dwi]
@@ -11,8 +14,7 @@
     [org.httpkit.server :as ohs]
     [org.httpkit.timer :as oht]
     [cheshire.core :as cc]
-
-    [dasha.widgets :as dw]))
+    ))
 
 (def clients (atom #{}))
 
@@ -27,30 +29,22 @@
 
 (defn async-handler [req]
   (ohs/with-channel req ws
-    (if (ohs/websocket? ws)
-      (println "WebSocket channel")
-      (println "HTTP channel"))
-
+    (println "Channel" ws)
     (add-client ws)
-
-    (ohs/on-close ws
-                  (fn  [status]
-                    (println "Channel " ws " status " status)
-                    (rm-client ws)))
-
+    (ohs/on-close ws (fn [st] (rm-client ws)))
     (ohs/on-receive ws #(println "Data from socket " %))))
 
 
 (defn start []
-  (let [out (chan)
-        ctrl (chan)]
+  (let [out (chan)]
     (go-loop [] (send-to-all (<! out)) (recur))
-
-    (dww/widget ctrl out {:t 30000 :qs ["Saint Petersburg" "Moscow" "Kiev"]})
-    (dwc/widget ctrl out {:t 30000})
-    (dwi/widget ctrl out {:t 30000})
-    (dwt/widget ctrl out {:t 30000 :qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]})
-    (fn [] (go (>! ctrl :stop) (close! ctrl)))))
+    (dr/robin 3000
+      out
+      [[:weather #'dww/widget  {:qs ["Saint Petersburg" "Moscow" "Kiev"]}]
+       [:clj     #'dwc/widget  {}]
+       [:infoq   #'dwi/widget  {}]
+       [:lines   #'dwl/widget  {:title "Tongue Twisters" :url "https://gist.githubusercontent.com/niquola/30e4a74d86ada3c983ec/raw/a50a71afef935e7ce8dde365f05286bab3e392ce/Tongue%20Twisters"}]
+       [:travis  #'dwt/widget  {:qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]}]])))
 (def stop (start))
 (comment
   (stop))

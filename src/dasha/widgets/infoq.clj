@@ -1,6 +1,6 @@
 (ns dasha.widgets.infoq
   (:require [org.httpkit.client :as http]
-            [dasha.widgets.util :as dwu :refer [def-widget from-json rotate]]
+            [hiccup.core :as hc]
             [clojure.xml :as cx]))
 
 (def url "http://www.infoq.com/feed")
@@ -25,5 +25,14 @@
     (take 4)))
 
 
-(def-widget :infoq [out _]
-  (http/get url {} #(out (parse-rss (:body %)))) _)
+(defn render [items]
+  (let [post (rand-nth items)]
+    {:color "gray"
+     :summary (hc/html [:h3 (:title post)])
+     :full    (hc/html [:h1 (:title post)]
+                       [:hr]
+                       [:p (:text post)])}))
+
+(defn widget [out cfg]
+  (http/get url {} #(out (render (parse-rss (:body %)))))
+  cfg)

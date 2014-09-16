@@ -1,23 +1,21 @@
-var app  = angular.module('app', []);
-
-var windowTurnTime = 30*1000;
-app.run(function($rootScope, $interval){
+$(function(){
+  var stack = []
   var soc = new WebSocket("ws://" + window.location.host +"/jeki/chan");
-  soc.onmessage = function(ev) {
-    $rootScope.$apply(function (){
-      var data = JSON.parse(ev.data)
-      $rootScope[data.id] = data.data
-      // console.log(data.id, data.data)
-    })
-  };
 
-  $rootScope.window = 0
-  $rootScope.nextWnd = function(){
-    w = $rootScope.window + 1
-    if(w > parseInt($rootScope.windowNum)){ w = 0 }
-    // console.log(w)
-    $rootScope.window = w
+  function render(stack){
+    for (var i=0; i< 4; i++){
+      d = stack[i]
+      if(d){
+        h = (i == 3 ? d.full : d.summary)
+        $('#i-' + (i+1)).html(h).css({backgroundColor: d.color || "gray"})
+      }
+    }
   }
-
-  $interval($rootScope.nextWnd, windowTurnTime)
+  soc.onmessage = function(ev) {
+    var data = JSON.parse(ev.data)
+    stack.unshift(data)
+    stack = stack.splice(0, 4)
+    console.log(stack)
+    render(stack)
+  };
 })
