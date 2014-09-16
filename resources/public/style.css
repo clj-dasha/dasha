@@ -1,21 +1,51 @@
-body {
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
   background: #222;
   color: white;
+  overflow: hidden;
+}
+.wnd {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 .wgt {
-  margin: 0.5vh 0.25vw 0.25vh 0.5vw;
+  margin: 0.25vw 0.25vh;
   padding: 4vh 4vw;
   display: inline-block;
-  height: 48vh;
-  width: 48vw;
+  height: 49vh;
+  width: 49vw;
   font-size: 4vmin;
   vertical-align: top;
   overflow: hidden;
-  color: white;
   background: #02779E;
+}
+.wgt.dblh {
+  height: 98.5vh;
+  width: 49vw;
+}
+.wgt.dblw {
+  height: 49vh;
+  width 98.5vw;
+}
+.wnd .wgt:nth-child(odd){
+  background: #02779E;
+}
+.wnd .wgt:nth-child(even){
+  background: #02779E;
+}
+.wnd .wgt:nth-child(3n){
+  background: brown;
+}
+.wnd .wgt:nth-child(4n){
 }
 .wgt .small {
   font-size: 2vmin;
+}
+.wgt .title {
+  font-weight: bold;
 }
 .hgrp {
   display: inline-block;
@@ -23,9 +53,8 @@ body {
 .hgrp .wgt{
   display: block;
 }
-.trvs {
-  color: white;
-  background: #029E77;
+.wgt.trvs {
+  background: #029E77 !important;
 }
 .trvs .state {
   display: inline-block;
@@ -46,21 +75,18 @@ body {
   font-size: 7vmin;
   font-weight: bold;
 }
-.clj {
-  color: white;
-  background: #02779E;
-  height: 98vh;
+.wgt.clj {
+  background: #02779E !important;
 }
-.wthr {
-  color: white;
-  background: brown;
+.wgt.wthr {
+  background: brown !important;
 }
-.wthr span  {
+.wgt.wthr span  {
   text-align: center;
   font-size: 7vmin;
   display: block;
 }
-.wthr .tmp {
+.wgt.wthr .tmp {
   font-size: 10vmin;
   display: block;
   text-align: center;

@@ -46,10 +46,10 @@
         ctrl (chan)]
     (go-loop [] (send-to-all (<! out)) (recur))
 
-    (dww/widget ctrl out {:t 10000 :qs ["Saint Petersburg" "Moscow" "Kiev"]})
-    (dwc/widget ctrl out {:t 10000})
-    (dwi/widget ctrl out {:t 20000})
-    (dwt/widget ctrl out {:t 10000 :qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]})
+    (dww/widget ctrl out {:t 30000 :qs ["Saint Petersburg" "Moscow" "Kiev"]})
+    (dwc/widget ctrl out {:t 30000})
+    (dwi/widget ctrl out {:t 30000})
+    (dwt/widget ctrl out {:t 30000 :qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]})
     (fn [] (go (>! ctrl :stop) (close! ctrl)))))
 (def stop (start))
 (comment

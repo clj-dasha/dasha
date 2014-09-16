@@ -14,18 +14,19 @@
       (hp/include-js "//code.angularjs.org/1.2.24/angular.min.js")
       (hp/include-js "/app.js")]]))
 
-(defn def-window [num & cnt]
-  (into [:div {:ng-switch-when num}] cnt))
+(defn def-window [& cnt]
+  (into [:div.wnd {}] cnt))
 
 (defn dashboard [& wgts]
-  (into [:div {:ng-switch "window" :ng-init (str "windowNum = " (dec (count wgts)))}]
-        wgts))
+  (into [:div {:ng-switch "window" :ng-click "nextWnd()" :ng-init (str "windowNum = " (dec (count wgts)))}]
+        (for [[w i] (map vector wgts (range))]
+          (update-in w [1] assoc :ng-switch-when i))))
 
 (defn index-page  []
   (layout
     "Dasha"
     (dashboard
-      (def-window 0
+      (def-window
         [:div.hgrp
          [:div.wgt.wthr
           [:span.title "{{weather.name}}"]
@@ -38,9 +39,12 @@
            "&nbsp; {{b.branch}} &nbsp;"
            [:span.small " {{b.finished_at | date:'MM-dd HH:mm'}} "]
            [:span.small " {{b.message}} "]]]]
-        [:div.wgt.clj
+        [:div.wgt.clj.dblh
          [:span.title "{{clj.title}}"]
          [:p "{{clj.text}}"]])
-      (def-window 1
-        [:div.wgt.infoq {:ng-repeat "n in infoq"}
-          [:span "{{n.title}}"]]))))
+      (def-window
+        [:h1 "Twitter"])
+      (def-window
+        [:div.wgt {:ng-repeat "n in infoq"}
+         [:span "{{n.title}}"]
+         [:p.small "{{n.text}}"]]))))

@@ -11,12 +11,16 @@
       java.io.ByteArrayInputStream.
       cx/parse))
 
+(defn find-tag-content [tg nd]
+  (first (:content (first (filter #(= (:tag %) tg) (:content nd))))))
+
 (defn parse-rss [s]
   (->>
     (get-in (parse s) [:content 0 :content])
     (filter (fn [x] (= :item (:tag x))))
     (take 10)
-    (map (fn [x] {:title (first (get-in x [:content 0 :content]))}))
+    (map (fn [x] {:title (find-tag-content :title x)
+                  :text  (find-tag-content :description x)}))
     (shuffle)
     (take 4)))
 
