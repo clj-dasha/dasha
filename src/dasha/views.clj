@@ -1,7 +1,15 @@
 (ns dasha.views
   (:require
+    [cheshire.core :as cc]
     [hiccup.core :as hc]
     [hiccup.page :as hp]))
+
+(def last-4-messages (atom (list)))
+
+(defn cache-message [m]
+  (swap! last-4-messages (fn [ms] (take 4 (cons m ms)))))
+
+#_(println @last-4-messages)
 
 (defn layout  [title & content]
   (hp/html5
@@ -18,6 +26,7 @@
 (defn index-page  []
   (layout
     "Dasha"
+    [:script (str "stack = " (cc/generate-string @last-4-messages))]
     [:div
      [:div#i-4.main
       [:p [:big "?"]]]

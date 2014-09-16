@@ -1,7 +1,7 @@
 $(function(){
-  var stack = []
   var soc = new WebSocket("ws://" + window.location.host +"/jeki/chan");
   var stop = false;
+  stack = window.stack
 
   $('body').click(function(){
     stop = !stop
@@ -17,6 +17,9 @@ $(function(){
       }
     }
   }
+
+  render(stack)
+
   soc.onmessage = function(ev) {
     if(stop){ return; }
     var data = JSON.parse(ev.data)
