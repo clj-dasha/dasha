@@ -7,7 +7,6 @@
                  [cheshire "5.3.1"]
                  [compojure "1.1.9"]
                  [hiccup "1.0.5"]
-                 [hiccup "1.0.5"]
                  [clj-time "0.8.0"]
                  [twitter-api "0.7.6"]
                  [http-kit "2.1.19"]
