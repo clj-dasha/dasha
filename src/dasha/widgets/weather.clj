@@ -18,13 +18,16 @@
 (defn summary [b]
   [:div
    [:h1 (:name b)]
-   [:big (- (long (get-in b [:main :temp])) 273) "&#x2103;"]])
+   [:big (- (long (get-in b [:main :temp])) 273) "&#x2103;"]
+   [:p (get-in b [:weather 0 :description])]])
 
 (defn full  [b]
   [:div
-   [:h1 (:name b)]
+   [:h1 (:name b) ]
    [:hr]
-   [:big (- (long (get-in b [:main :temp])) 273) "&#x2103;"]])
+   [:big (- (long (get-in b [:main :temp])) 273) "&#x2103;"]
+   [:h3 (get-in b [:weather 0 :description])]
+   ])
 
 (defn widget [out cfg]
   (http/get url {:query-params {:q (first (:qs cfg))}}

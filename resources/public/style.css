@@ -20,6 +20,10 @@ html, body {
   vertical-align: top;
   overflow: hidden;
 }
+.a img {
+  margin: -3vh -3vw;
+  width: 31vw;
+}
 .a h1 {
   font-size: 4vmin;
   font-width: bold;
@@ -74,4 +78,13 @@ code, pre {
   overflow: hidden;
   display: inline-block;
   background: #da532c;
+  position: relative;
 }
+#i-4 img{
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: -1vw -1vh;
+  height: 97vh;
+}
+

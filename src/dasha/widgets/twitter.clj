@@ -23,7 +23,7 @@
 
 (defn widget [out cfg]
   (let [[twt & twts] (read-or-load cfg)]
-    (out {:color "#02779E"
+    (out {:color (or (:color cfg) "#02779E")
           :summary (hc/html [:h1 (icon :twitter) " " (:q cfg)] " " [:p (:text twt)])
           :full (hc/html [:h1 (icon :twitter) " " (:q cfg)] [:h1 (:text twt)])})
     (assoc cfg :twts twts)))

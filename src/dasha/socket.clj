@@ -10,6 +10,7 @@
     [dasha.widgets.lines :as dwl]
     [dasha.widgets.clojure :as dwc]
     [dasha.widgets.travis :as dwt]
+    [dasha.widgets.ffound :as dwf]
     [dasha.widgets.infoq :as dwi]
     [dasha.widgets.twitter :as dwtw]
 
@@ -42,12 +43,18 @@
 (defn start []
   (let [out (chan)]
     (go-loop [] (send-to-all (<! out)) (recur))
-    (dr/robin 15000
+    (dr/robin 25000
               out
-              [[:weather #'dww/widget  {:qs ["Saint Petersburg" "Moscow" "Kiev"]}]
+              [[:ffound  #'dwf/widget  {}]
+               [:weather #'dww/widget  {:qs ["Saint Petersburg" "Moscow" "Kiev"]}]
                [:clj     #'dwc/widget  {}]
+               [:travis  #'dwt/widget  {:qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]}]
                [:infoq   #'dwi/widget  {}]
                [:twitter #'dwtw/widget {:q "from:ComedianTwi"}]
+               [:clj     #'dwc/widget  {}]
+               [:twitter #'dwtw/widget {:q "#clojure"}]
+               [:travis  #'dwt/widget  {:qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]}]
+               [:twitter #'dwtw/widget {:q "from:strangeloop_stl", :color "#da532c"}]
                [:lines   #'dwl/widget  {:title "Tongue Twisters" :url "https://gist.githubusercontent.com/niquola/30e4a74d86ada3c983ec/raw/a50a71afef935e7ce8dde365f05286bab3e392ce/Tongue%20Twisters"}]
                [:travis  #'dwt/widget  {:qs ["fhirbase/fhirbase" "FHIR/fhir.js" "formstamp/formstamp" "fhir-ru/fhir-svn"]}]])))
 
