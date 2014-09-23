@@ -10,7 +10,7 @@
 
 (defn html [html]
   {:status  200
-   :headers  {"Content-Type" "text/html"}
+   :headers  {"Content-Type" "text/html; charset=utf-8"}
    :body    html})
 
 

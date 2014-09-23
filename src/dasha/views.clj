@@ -14,6 +14,7 @@
 (defn layout  [title & content]
   (hp/html5
     [:head
+     [:meta {:http-equiv "Content-Type" :content "text/html; charset=utf-8"}]
      [:title title]
      (hp/include-css "//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
      (hp/include-css "//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css")

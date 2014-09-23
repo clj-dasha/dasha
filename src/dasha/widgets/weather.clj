@@ -17,9 +17,8 @@
 
 (defn summary [b]
   [:div
-   [:h1 (:name b)]
-   [:big (- (long (get-in b [:main :temp])) 273) "&#x2103;"]
-   [:p (get-in b [:weather 0 :description])]])
+   [:h1 (:name b) " " [:small (get-in b [:weather 0 :description])]]
+   [:big (- (long (get-in b [:main :temp])) 273) "&#x2103;"]])
 
 (defn full  [b]
   [:div
